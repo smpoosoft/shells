@@ -1,0 +1,16 @@
+{
+  "name": "shell_lib",
+  "version": "2.0.0",
+  "description": "The base lib function for smpoo.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:smpoosoft/scripts.git"
+  },
+  "keywords": [],
+  "author": "上海深普软件.Co.,Ltd. <leev@smpoo.com>",
+  "license": "MIT"
+}
