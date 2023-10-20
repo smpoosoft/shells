@@ -4,25 +4,25 @@
 
 # 进行常规控制台打印信息
 function tlog() {
-	echo "日志"
+	echo "日志$1"
 }
 
 # 输出蓝色标题信息
 function tInfo() {
-	echo "信息"
+	echo "信息$1"
 }
 
 # 输出成功信息
 function tSucc() {
-	echo "成功"
+	echo "成功$1"
 }
 
 # 输出警告信息
 function tWarn() {
-	echo "警告"
+	echo "警告$1"
 }
 
 # 输出异常信息
 function tErr() {
-	echo "错误"
+	echo "错误$1"
 }
