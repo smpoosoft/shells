@@ -1,6 +1,6 @@
 {
   "name": "shell_lib",
-  "version": "2.0.4",
+  "version": "2.0.5",
   "description": "The base lib function for smpoo.",
   "main": "index.js",
   "scripts": {
