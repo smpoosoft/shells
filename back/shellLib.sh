@@ -12,7 +12,21 @@ if [ ! -d "${PATH_LIB}/${VER}" ]; then
 fi
 
 # 引用脚本
+# smpoo 项目或规范方面的辅助函数
+source ${PATH_LIB}/${VER}/src/smpoo.sh
+# 日期辅助函数
+source ${PATH_LIB}/${VER}/src/tDate.sh
 # 控制台辅助函数
 source ${PATH_LIB}/${VER}/src/tEcho.sh
+#  github 操作辅助函数
+source ${PATH_LIB}/${VER}/src/tGit.sh
 # docker 辅助函数
 source ${PATH_LIB}/${VER}/src/tDocker.sh
+# podman 辅助函数
+source ${PATH_LIB}/${VER}/src/tPodman.sh
+# ssh 辅助函数
+source ${PATH_LIB}/${VER}/src/tSsh.sh
+# ssl 辅助函数
+source ${PATH_LIB}/${VER}/src/tSsl.sh
+# 系统层面的辅助函数
+source ${PATH_LIB}/${VER}/src/tSys.sh
