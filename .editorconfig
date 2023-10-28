@@ -1,0 +1,141 @@
+# EditorConfig: https://editorconfig.org/
+# 这是一个 .editorconfig 配置文件，用于统一代码风格和规范。
+# 注释在参数上一行。
+
+# ----------------
+# 通用规则
+# ----------------
+[*]
+# 根目录配置，表示是最顶层的EditorConfig文件
+root = true
+
+# 指定字符编码
+charset = "utf-8"
+
+# 指定行尾符
+end_of_line = lf
+
+# 自动在文件末尾插入一个空行
+insert_final_newline = true
+
+# 保存文件时删除行末的空白字符
+trim_trailing_whitespace = true
+
+
+# ----------------
+# JavaScript规则
+# ----------------
+
+# 匹配所有.js文件，为JavaScript文件配置规则
+[*.js]
+[*.mjs]
+# 使用2个空格缩进
+indent_style = space
+indent_size = 2
+# 每行最多80个字符
+max_line_length = 120
+# 使用 K&R 风格的括号
+brace_style = stroud
+# 文件末尾自动插入一个空行
+insert_final_newline = true
+
+
+# ----------------
+# TypeScript规则
+# ----------------
+
+# 匹配所有.ts文件，为TypeScript文件配置规则
+[*.ts]
+# 使用2个空格缩进
+indent_style = space
+indent_size = 2
+# 每行最多80个字符
+max_line_length = 80
+# 使用 K&R 风格的括号
+brace_style = stroud
+# 文件末尾自动插入一个空行
+insert_final_newline = true
+# 行尾自动插入分号
+end_with = ;
+
+
+# ----------------
+# Vue规则
+# ----------------
+
+# 匹配所有.vue文件，为Vue文件配置规则
+[*.vue]
+# 使用2个空格缩进
+indent_style = space
+indent_size = 2
+# 每行最多80个字符
+max_line_length = 80
+# 使用 K&R 风格的括号
+brace_style = stroud
+# 文件末尾自动插入一个空行
+insert_final_newline = true
+
+
+# ----------------
+# HTML规则
+# ----------------
+
+# 匹配所有.html文件，为HTML文件配置规则
+[*.html]
+# 不使用缩进，同时使用4个空格作为缩进宽度
+indent_style = none
+indent_size = 4
+# 每行最多80个字符
+max_line_length = 80
+# 在文件尾部插入一个空行
+insert_final_newline = true
+
+
+# ----------------
+# CSS规则
+# ----------------
+
+# 匹配所有.css文件，为CSS文件配置规则
+[*.css]
+# 使用2个空格缩进
+indent_style = space
+indent_size = 2
+# 每行最多80个字符
+max_line_length = 80
+# 自动插入空行
+insert_final_newline = true
+
+
+# ----------------
+# SCSS规则
+# ----------------
+
+# 匹配所有.scss和.sass文件，为SCSS文件配置规则
+[*.scss]
+[*.sass]
+# 使用两个空格缩进
+indent_style = space
+indent_size = 2
+# 每行最多80个字符
+max_line_length = 80
+# 自动在文件末尾插入一个空行
+insert_final_newline = true
+
+# ----------------
+# Python规则
+# ----------------
+
+# 匹配所有.py文件，为Python文件配置规则
+[*.py]
+# 使用4个空格缩进
+indent_style = space
+indent_size = 4
+# 不限制每行最大长度
+max_line_length = 0
+# 在文件尾部插入一个空行
+insert_final_newline = true
+# 在文件头部插入 shebang
+insert_final_newline = true
+ 
+
+# 余下部分也按照这样的格式来配置即可。

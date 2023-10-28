@@ -1,12 +1,10 @@
-#!/bin/bash
-# echo -e "\\033[0;33m橙色\\033[0m"
-# echo -e "\\033[0;32m黄绿色\\033[0m"
-# echo -e "\\033[0;32m绿色\\033[0m"
-# echo -e "\\033[38;5;240m灰色\\033[0m"
-# echo -e "\\033[0;34m蓝色\\033[0m"
+source ./tSys.sh
 
-# 格式化shell脚本的屏幕显示，如带颜色的输出，或预置颜色的输出。
+# ==================================================
+#                shell 屏显控制/格式化
+# ==================================================
 
+# region 语义化的彩色控制输出
 # 进行常规控制台打印信息
 tEcho.log() {
 	if [ ! -n "$1" ]; then
@@ -44,7 +42,7 @@ tEcho.warn() {
 }
 
 # 输出异常信息
-# $1 要附加的异常提示信息，若不提供，则默认输出： “错误”字样
+	# $1 要附加的异常提示信息，若不提供，则默认输出： “错误”字样
 tEcho.err() {
 	if [ ! -n "$1" ]; then
 		echo -e "\\033[0;31m错误\\033[0m"
@@ -55,30 +53,13 @@ tEcho.err() {
 
 # 用 lolcat 的彩虹色方案显示内容
 tEcho.color() {
-    if ! command -v lolcat > /dev/null 2>&1; then
-        echo "tEcho.color 命令依赖于 lolcat，但当前未安装，正在尝试安装..."
-        sudo apt-get install -y lolcat
-    fi
+	# 确保 lolcat 已安装
+	tSys.ensureCmd "lolcat"
     echo $1 | lolcat
 }
+# endregion
 
-# 打印深普品牌LOGO
-tEcho.logo() {
-	echo  -e "\033[34m       ___           ___           ___           ___           ___      \033[0m"
-	echo  -e "\033[34m      /\\  \\         /\\__\\         /\\  \\         /\\  \\         /\\  \\     \033[0m"
-	echo  -e "\033[34m     /::\\  \\       /::|  |       /::\\  \\       /::\\  \\       /::\\  \\    \033[0m"
-	echo  -e "\033[34m    /:/\\ \\  \\     /:|:|  |      /:/\\:\\  \\     /:/\\:\\  \\     /:/\\:\\  \\   \033[0m"
-	echo  -e "\033[34m   _\\:\\-\\ \\  \\   /:/|:|__|__   /::\\-\\:\\  \\   /:/  \\:\\  \\   /:/  \\:\\  \\  \033[0m"
-	echo  -e "\033[34m  /\\ \\:\\ \\ \\__\\ /:/ |::::\\__\\ /:/\\:\\ \\:\\__\\ /:/__/ \\:\\__\\ /:/__/ \\:\\__\\  \033[0m"
-	echo  -e "\033[34m  \\:\\ \\:\\ \\/__/ \\/__/--/:/  / \\/__\\:\\/:/  / \\:\\  \\ /:/  / \\:\\  \\ /:/  /  \033[0m"
-	echo  -e "\033[34m   \\:\\ \\:\\__\\         /:/  /       \\::/  /   \\:\\  /:/  /   \\:\\  /:/  /  \033[0m"
-	echo  -e "\033[34m    \\:\\/:/  /        /:/  /         \\/__/     \\:\\/:/  /     \\:\\/:/  /   \033[0m"
-	echo  -e "\033[34m     \\::/  /        /:/  /                     \\::/  /       \\::/  /    \033[0m"
-	echo  -e "\033[34m      \\/__/         \\/__/                       \\/__/         \\/__/     \033[0m"
-	echo ""
-	echo  -e "\033[34m                        上海深普软件有限公司 - www.smpoo.com \033[0m"
-}
-
+# region 个性化样式输出
 # 打印宿主机系统信息
 tEcho.host() {
 	STR_SYS_NAME="`getSysName`"
@@ -105,47 +86,56 @@ tEcho.host() {
 }
 
 # 输出屏幕等宽的横线
-# $1 如果不提供，则全部为屏幕等宽横线
-# $1 如果存在，则将$1 嵌入横线正中，左右各4个空白字符
-# $1 如果$1本身的长度就已经超出屏幕宽度，则输出格式变为上中下三部分。上下为横线，中间为$1 字符
+	# $1 如果不提供，则全部为屏幕等宽横线
+	# $1 如果存在，则将$1 嵌入横线正中，左右各4个空白字符
+	# $1 如果$1本身的长度就已经超出屏幕宽度，则输出格式变为上中下三部分。上下为横线，中间为$1 字符
 tEcho.line() {
     # 获取终端的宽度
-    local cols=$(tput cols)
+    local widthScreen=$(tput cols)
 
     # 如果没有传入参数 $1，输出一个完整的横线
     if [ -z "$1" ]; then
-        printf '%*s\n' $cols | tr ' ' '-'
+        printf '%*s\n' $widthScreen | tr ' ' '-'
     else
         # 如果传入了参数 $1，计算其长度
-        local len=${#1}
+        local lenStr=${#1}
+        local widthStr=$(echo -n "$1" | wc -L)
+        local widthUnit=$((widthStr + 12))
 
-        # 如果 $1 的长度小于终端宽度减 12，将其嵌入到横线中
-        if [ $len -lt $(($cols - 12)) ]; then
-            local padding=$(( (cols - len - 8 + 1) / 2 )) # 向上取整
-            printf '%*s' $padding | tr ' ' '-'
-            printf '    %s    ' "$1"
-            printf '%*s' $((padding - 1)) | tr ' ' '-'   # 减去向上取整带来的额外长度
-            if (( (cols - len) % 2 == 0 )); then          # 如果总长度是偶数，添加一个额外的 -
-                printf '-'
+        if [ $((widthScreen - widthUnit)) -lt 0 ]; then
+            printf '%*s\n' $widthScreen | tr ' ' '-'
+            # 计算留白空间
+            local space=$((widthScreen - widthStr))
+            if [ $space -ge 2 ]; then
+                # 如果留白空间为奇数，减去1
+                if [ $((space % 2)) -eq 1 ]; then
+                    space=$((space - 1))
+                fi
+                # 计算单边留白宽度
+                local padding=$((space / 2))
+                # 打印：单边留白宽度（个空白） $1 单边留白宽度（个空白）
+                printf '%*s%s%*s\n' "$padding" '' "$1" "$padding" ''
+            else
+                echo "$1"
             fi
-            echo
+            printf '%*s\n' $widthScreen | tr ' ' '-'
         else
-            # 如果 $1 的长度大于或等于终端宽度减 12，输出上中下三部分结构
-            printf '%*s\n' $cols | tr ' ' '-'
-            printf "%*s\n" $(((${#1}+$cols)/2)) "$1"
-            printf '%*s\n' $cols | tr ' ' '-'
+			# 计算横线长度
+			local lenLine=$(( (widthScreen - widthStr) / 2 - 2 ))
+			printf '%-*s  %s  %-*s\n' "$lenLine" "$(printf '%.0s-' $(seq 1 $lenLine))" "$1" "$lenLine" "$(printf '%.0s-' $(seq 1 $lenLine))"
+            echo
         fi
     fi
 }
-
+# endregion
 
 # region 菜单生成器相关
 # 列表型菜单界面展示器（仅供界面显示，不返回实际意义的值）
-# 取值请使用：menu_list_getter
-# $1 菜单标题文本
-# $2 菜单列表的文本项（第一项为默认值）
-# eg:
-# menu_list_selector "请选择：" "${arr[*]}"
+	# 取值请使用：menu_list_getter
+	# $1 菜单标题文本
+	# $2 菜单列表的文本项（第一项为默认值）
+	# eg:
+	# menu_list_selector "请选择：" "${arr[*]}"
 function menu_list_selector() {
 	arrs=($2)
 	idx=1
@@ -163,13 +153,13 @@ function menu_list_selector() {
 	echo -e $STR_LINE
 }
 # 是否型菜单界面选择器
-# $1 菜单标题文本
-# $2 选 y 时的效果说明
-# $3 选 n 时的效果说明
-# $4 [可选] 默认值，不提供则为 y
-# $5 [可选] 对本交互提示的附加说明，采用分行文本数组
-# eg:(完整示例)
-# menu_true_false_selector "请选择：" "为 y/Y 时的选择" "为 n/N 时的选择" "n"
+	# $1 菜单标题文本
+	# $2 选 y 时的效果说明
+	# $3 选 n 时的效果说明
+	# $4 [可选] 默认值，不提供则为 y
+	# $5 [可选] 对本交互提示的附加说明，采用分行文本数组
+	# eg:(完整示例)
+	# menu_true_false_selector "请选择：" "为 y/Y 时的选择" "为 n/N 时的选择" "n"
 function menu_true_false_selector() {
 	defaultVal="y"
 	defaultTitle="是"
@@ -198,11 +188,11 @@ function menu_true_false_selector() {
 	echo " 其他任意键代表：$defaultTitle"
 }
 # 列表型菜单交互值获取器
-# $1 与 menu_list_selector 函数同源的备选菜单项数组
-# $2 输入长度限制，默认为 1
-# $3 [可选] 输入的索引值对应的 key 值列表，如果不填写，则返回索引值对应的显示文本
-# eg:
-# menu_list_getter "${arr[*]}"
+	# $1 与 menu_list_selector 函数同源的备选菜单项数组
+	# $2 输入长度限制，默认为 1
+	# $3 [可选] 输入的索引值对应的 key 值列表，如果不填写，则返回索引值对应的显示文本
+	# eg:
+	# menu_list_getter "${arr[*]}"
 function menu_list_getter() {
 	inputLimt=1
 	if [ "$2" != "" ]; then
@@ -231,9 +221,9 @@ function menu_list_getter() {
 	fi
 }
 # 是否型菜单交互值获取器
-# $1 与 menu_true_false_selector 函数同源的默认值，若不提供，则为 y
-# eg:
-# showMenu_Yn "n"
+	# $1 与 menu_true_false_selector 函数同源的默认值，若不提供，则为 y
+	# eg:
+	# showMenu_Yn "n"
 function menu_true_false_getter() {
 	read -s -n 1 resInput
 	currVal=$resInput
