@@ -6,7 +6,7 @@ mgr() {
 	if [ -n "${commitMemo}" ]; then
 		sudo git add .
 		sudo git commit -m "${commitMemo}"
-		git push -u origin $(git rev-parse --abbrev-ref HEAD)
+		sudo git push -u origin $(git rev-parse --abbrev-ref HEAD)
 	else
 		mgr
 	fi
