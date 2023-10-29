@@ -1,3 +1,5 @@
+source ../src/tEcho.sh
+
 ARR_CMD=(
 	"curl -s ifconfig.co"
 	"curl -s ifconfig.me"
@@ -32,12 +34,17 @@ execCmd() {
 }
 
 run() {
-    local loopIdx=1
-    while ((loopIdx <= $1)); do
-        execCmd "$loopIdx" "${ARR_CMD[@]}"
-        ((loopIdx++))
-    done
+	if [ -n "$1" ]; then
+		tEcho.info "准备开始循环检测公网IP，${1} 次"
+		local loopIdx=1
+		while ((loopIdx <= $1)); do
+			execCmd "$loopIdx" "${ARR_CMD[@]}"
+			((loopIdx++))
+		done
+	else
+		tEcho.err "必须输入循环次数"
+	fi
 }
 
 clear
-run 2
+run $1

@@ -1,4 +1,4 @@
-source ./tSys.sh
+source /smpoo_file/.lib/v2.0.0/src/tSys.sh
 
 # ==================================================
 #                shell 屏显控制/格式化

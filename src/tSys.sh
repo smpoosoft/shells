@@ -100,6 +100,15 @@ tSys.ip.local() {
     # 该函数调用了第三方资源和网站，需要耗费相对较多的运行时间。
     # 因此应该用在对公网IP信息有必要性的场景，或者借助公网IP获取确保外网正常的情形。
 tSys.ip.public() {
+    # 可用命令包括：
+    # curl ifconfig.co
+    # curl ifconfig.me
+    # curl icanhazip.com
+    # curl ident.me
+    # curl ipinfo.io/ip/
+    # curl api.ipify.org
+    # dig +short myip.opendns.com @resolver1.opendns.com
+    # dig ANY +short @resolver2.opendns.com myip.opendns.com
     ip=$(python ./util/py/getIp.py)
     echo ${ip}
 }

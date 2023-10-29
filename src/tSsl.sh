@@ -1,4 +1,4 @@
-source ./tEcho.sh
+source /smpoo_file/.lib/v2.0.0/src/tEcho.sh
 
 # ==================================================
 #                本机的 SSL 证书管理

@@ -1,4 +1,4 @@
-source ./tEcho.sh
+source /smpoo_file/.lib/v2.0.0/src/tEcho.sh
 
 # ==================================================
 #                github 管理/辅助

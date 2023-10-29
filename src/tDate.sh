@@ -3,6 +3,11 @@
 # ==================================================
 
 # 日期格式化
+	# 输出：YYYY_MM_DD 样式
 DATE_FORMAT=$(date "+%Y_%m_%d")
-TIME_FORMAT=$(date "+%H:%M:%S")
-DATETIME_FORMAT=$(date "+%Y_%m_%d_%H%M%S")
+# 时间格式化
+	# 输出：HH_MI_SS 样式
+TIME_FORMAT=$(date "+%H_%M_%S")
+# 日期时间格式化
+	# 输出：YYYY_MM_DD_HH_MI_SS 样式
+DATETIME_FORMAT=$(date "+%Y_%m_%d_%H_%M_%S")
