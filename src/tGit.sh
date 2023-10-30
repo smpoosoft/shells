@@ -1,5 +1,6 @@
 source /smpoo_file/.lib/v2.0.0/src/tEcho.sh
 source /smpoo_file/.lib/v2.0.0/src/tMenu.sh
+source /smpoo_file/.lib/v2.0.0/src/tPkg.sh
 
 # ==================================================
 #                github 管理/辅助
@@ -34,6 +35,8 @@ tGit.push() {
 			fi
 			echo ""
 			echo ""
+
+			# tPkg.reVer "$1"
 			sudo git add .
 			sudo git commit -m "${commitMemo}"
 			if sudo git push -u origin $(git rev-parse --abbrev-ref HEAD)
