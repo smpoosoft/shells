@@ -13,20 +13,22 @@ fi
 
 # 引用脚本
 # smpoo 项目或规范方面的辅助函数
-source ${PATH_LIB}/${VER}/src/smpoo.sh
+source "${PATH_LIB}/${VER}/src/smpoo.sh"
 # 日期辅助函数
-source ${PATH_LIB}/${VER}/src/tDate.sh
+source "${PATH_LIB}/${VER}/src/tDate.sh"
 # 控制台辅助函数
-source ${PATH_LIB}/${VER}/src/tEcho.sh
+source "${PATH_LIB}/${VER}/src/tEcho.sh"
 #  github 操作辅助函数
-source ${PATH_LIB}/${VER}/src/tGit.sh
+source "${PATH_LIB}/${VER}/src/tGit.sh"
+#  终端屏显菜单辅助函数
+source "${PATH_LIB}/${VER}/src/tMenu.sh"
 # docker 辅助函数
-source ${PATH_LIB}/${VER}/src/tDocker.sh
+source "${PATH_LIB}/${VER}/src/tDocker.sh"
 # podman 辅助函数
-source ${PATH_LIB}/${VER}/src/tPodman.sh
+source "${PATH_LIB}/${VER}/src/tPodman.sh"
 # ssh 辅助函数
-source ${PATH_LIB}/${VER}/src/tSsh.sh
+source "${PATH_LIB}/${VER}/src/tSsh.sh"
 # ssl 辅助函数
-source ${PATH_LIB}/${VER}/src/tSsl.sh
+source "${PATH_LIB}/${VER}/src/tSsl.sh"
 # 系统层面的辅助函数
-source ${PATH_LIB}/${VER}/src/tSys.sh
+source "${PATH_LIB}/${VER}/src/tSys.sh"
