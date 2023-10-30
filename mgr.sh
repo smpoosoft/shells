@@ -7,11 +7,15 @@ mgr() {
 	if [ -n "${commitMemo}" ]; then
 		sudo cp -rf ../shellLib.sh ./back/
 		gitEnvType=$(tMenu.select ./.dev/menus/gitEnvType.jsonc)
+		echo ""
+		echo ""
 		if [ "${gitEnvType}" == "y" ]; then
 			tEcho.info "项目将发布为生产版本"
 		else
 			tEcho.warn "项目将发布为开发版本"
 		fi
+		echo ""
+		echo ""
 		sudo git add .
 		sudo git commit -m "${commitMemo}"
 		sudo git push -u origin $(git rev-parse --abbrev-ref HEAD)
