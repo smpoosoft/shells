@@ -8,9 +8,9 @@ mgr() {
 		sudo cp -rf ../shellLib.sh ./back/
 		gitEnvType=$(tMenu.select ./.dev/menus/gitEnvType.jsonc)
 		if [ "${gitEnvType}" == "y" ]; then
-			echo "项目将发布为生产版本"
+			tEcho.info "项目将发布为生产版本"
 		else
-			echo "项目将发布为开发版本"
+			tEcho.warn "项目将发布为开发版本"
 		fi
 		sudo git add .
 		sudo git commit -m "${commitMemo}"
