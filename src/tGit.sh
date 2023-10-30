@@ -36,9 +36,9 @@ tGit.push() {
 			echo ""
 			echo ""
 
-			tPkg.reVer "$1"
 			sudo git add .
 			sudo git commit -m "${commitMemo}"
+			tPkg.reVer "$1"
 			if sudo git push -u origin $(git rev-parse --abbrev-ref HEAD)
 			then
 				echo ""

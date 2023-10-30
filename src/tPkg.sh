@@ -9,5 +9,5 @@ tPkg.reVer() {
 	fi
 	pathRoot="$1"
 	verType=$(tMenu.select "${pathRoot}/src/.data/menus/pkgPolicy.jsonc")
-	npm version ${verType}
+	sudo npm version ${verType}
 }
