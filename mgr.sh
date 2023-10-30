@@ -20,8 +20,12 @@ mgr() {
 		sudo git commit -m "${commitMemo}"
 		if sudo git push -u origin $(git rev-parse --abbrev-ref HEAD)
 		then
+			echo ""
+			echo ""
 			tEcho.succ "发布成功！"
 		else
+			echo ""
+			echo ""
 			tEcho.err "发布失败！"
 		fi
 		echo ""
