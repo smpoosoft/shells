@@ -18,7 +18,14 @@ mgr() {
 		echo ""
 		sudo git add .
 		sudo git commit -m "${commitMemo}"
-		sudo git push -u origin $(git rev-parse --abbrev-ref HEAD)
+		if sudo git push -u origin $(git rev-parse --abbrev-ref HEAD)
+		then
+			tEcho.succ "发布成功！"
+		else
+			tEcho.err "发布失败！"
+		fi
+		echo ""
+		echo ""
 	else
 		mgr
 	fi
