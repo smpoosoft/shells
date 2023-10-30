@@ -12,15 +12,19 @@ tGit.init() {
 # 将当前项目推送到远端仓库
 # $1 代表 package.json 文件所在的路径，通常在发起 tGit.push 函数调用的入口函数中，传入 pwd 对应的结果
 tGit.push() {
-	if [ ! -f "$1/package.json" ]; then
+	if [ ! -n "$1" ]; then
+		tEcho.err "tGit.push 函数需要传入一个 package.json 文件所在地址的参数才能运行，通常，你可以在发起 tGit.push 函数调用的入口函数中，传入 pwd 对应的结果"
+		exit
+	fi
+	pathRoot="$1"
+	if [ ! -f "${pathRoot}/package.json" ]; then
 		tEcho.err "当前路径不存在 package.json 文件，即将退出"
 		exit 1
 	else
 		tEcho.info "请输入提交备注(备注中的引号用反斜杠转义)："
 		read commitMemo
 		if [ -n "${commitMemo}" ]; then
-			sudo cp -rf ../shellLib.sh ./back/
-			gitEnvType=$(tMenu.select ./.data/menus/gitEnvType.jsonc)
+			gitEnvType=$(tMenu.select "${pathRoot}/src/.data/menus/gitEnvType.jsonc")
 			echo ""
 			echo ""
 			if [ "${gitEnvType}" == "y" ]; then
