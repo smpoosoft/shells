@@ -13,7 +13,7 @@ tGit.init() {
 # $1 代表 package.json 文件所在的路径，通常在发起 tGit.push 函数调用的入口函数中，传入 pwd 对应的结果
 tGit.push() {
 	if [ ! -n "$1" ]; then
-		tEcho.err "tGit.push 函数需要传入一个 package.json 文件所在地址的参数才能运行，通常，你可以在发起 tGit.push 函数调用的入口函数中，传入 pwd 对应的结果"
+		tEcho.err "tGit.push 函数需要传入一个 package.json 文件所在地址的参数才能运行，通常，你可以在入口函数文件中使用 \"\$(pwd)\" 获取这个参数。"
 		exit
 	fi
 	pathRoot="$1"
