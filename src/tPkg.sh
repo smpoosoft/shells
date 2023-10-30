@@ -7,6 +7,7 @@ tPkg.reVer() {
 		tEcho.err "tPkg.reVer 函数需要传入一个 package.json 文件所在地址的参数才能运行，通常，你可以在入口函数文件中使用 \"\$(pwd)\" 获取这个参数。"
 		exit
 	fi
-	verType=$(tMenu.select ./.data/menus/pkgPolicy.jsonc)
+	pathRoot="$1"
+	verType=$(tMenu.select "${pathRoot}/src/.data/menus/pkgPolicy.jsonc")
 	npm version ${verType}
 }
