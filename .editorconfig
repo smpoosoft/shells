@@ -20,7 +20,8 @@ insert_final_newline = true
 
 # 保存文件时删除行末的空白字符
 trim_trailing_whitespace = true
-
+indent_style = space
+indent_size = 2
 
 # ----------------
 # JavaScript规则
