@@ -29,14 +29,11 @@ tPkg.getKey() {
     fi
 
     local fieldValue
-    local result=()
 
     for field in "${fields[@]}"; do
-        if ! fieldValue=$(jq -r ".$field" "$pkgFile"); then
+        if ! fieldValue=$(jq -r ".$field" "$pkgFile" | tr -d '\n'); then
             tEcho.err "Error: Path '${targetDir}/package.json' file is missing the '$field' field." 1
         fi
-        result+=("$fieldValue")
+        echo $fieldValue
     done
-
-    printf "%s\n" "${result[@]}"
 }
