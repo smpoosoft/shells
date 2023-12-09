@@ -3,7 +3,7 @@
 # ==================================================
 
 # 定义待安装的全局数组变量 ARR_CMD
-declare -a ARR_CMD=("lolcat")
+declare -a ARR_CMD=("lolcat" "jq")
 
 # 确保 $1 代表的程序或命令已安装，若未安装，则会立即执行安装
 tSys.ensureCmd() {

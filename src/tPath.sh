@@ -33,3 +33,27 @@ tPath.folder.date() {
   # 创建文件夹，如果 $1 存在尾斜杠，则消除
   sudo mkdir -p "${1%/}/$dir_name"
 }
+
+# 以当前路径为基准，返回指定层级的上级路径
+  # $1 代表要获取的第几级上级
+  # eg. 当前目录为 /foo/bar5/bar4/bar3/bar2/bar1/bar
+  #
+  # tPath.folder.getParent 1，返回当前目录的第1层上级： /foo/bar5/bar4/bar3/bar2/bar1
+  # tPath.folder.getParent 不带参数的时候，是 getParentDir 1 的缺省用法
+  # tPath.folder.getParent 2，返回当前目录的第2层上级： /foo/bar5/bar4/bar3/bar2
+  # tPath.folder.getParent 3，返回当前目录的第3层上级： /foo/bar5/bar4/bar3
+  # 依次类推，当 $1 的值超出当前目录的最大上级层数，本例中为 6 时，控制台输出错误提示后，终止进程退出
+tPath.folder.getParent() {
+    local levels="${1:-1}"  # 默认为 1
+    local initialDir="$(pwd)"
+    local currentDir="$initialDir"
+
+    for ((i=1; i<=levels; i++)); do
+        if [ "$currentDir" == "/" ]; then
+            tEcho.err "Error: The argument \"\$1=$1\" exceeds the maximum levels of the current path: \"${initialDir}\"." 1
+        fi
+        currentDir="$(dirname "$currentDir")"
+    done
+
+    echo "$currentDir"
+}
